@@ -18,7 +18,7 @@ function findAllError(err) {
 
 function* fetchTasks(action) {
   try {
-    const data = yield call(executeRequest, '/tasks');
+    const data = yield call(executeRequest, '/Tasks');
     yield put(findAllSuccess(data));
   } catch (e) {
     yield put(findAllError(e));

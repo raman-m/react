@@ -3,16 +3,17 @@ import thunk from 'redux-thunk';
 import {createLogger} from 'redux-logger';
 import {tasks} from './reducer';
 import createSagaMiddleware from 'redux-saga';
-// import {fetchTasksSaga} from './sagas';
+import {fetchTasksSaga} from './sagas';
 
 const logger = createLogger({
   diff: true
 });
 
-// const saga = createSagaMiddleware();
+const saga = createSagaMiddleware();
 
 const middlewares = applyMiddleware(
-  thunk, // saga,
+  //thunk,
+  saga,
   logger
 );
 
@@ -22,4 +23,4 @@ const reducers = combineReducers({
 
 export const store = createStore(reducers, middlewares);
 
-// saga.run(fetchTasksSaga);
+saga.run(fetchTasksSaga);
