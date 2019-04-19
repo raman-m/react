@@ -5,7 +5,10 @@ import * as serviceWorker from './serviceWorker'
 import {
     //constAndLet,
     //arrowFunctions
+    destructuring
 } from './examples'
+
+destructuring()
 
 ReactDOM.render(<App />, document.getElementById('root'));
 
