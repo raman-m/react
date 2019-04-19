@@ -5,10 +5,11 @@ import * as serviceWorker from './serviceWorker'
 import {
     //constAndLet,
     //arrowFunctions
-    destructuring
+    //destructuring
+    objAssemblyComputedProps
 } from './examples'
 
-destructuring()
+objAssemblyComputedProps()
 
 ReactDOM.render(<App />, document.getElementById('root'));
 
