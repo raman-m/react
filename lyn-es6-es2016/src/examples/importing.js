@@ -1,12 +1,12 @@
-//
-// import SomeRandomThing from './exporting.js'
-//
-//
-//
-//
-//
-//
-//
+
+// import MyComp from './exporting'
+
+
+
+
+
+
+
 
 
 
@@ -22,30 +22,10 @@
 //
 //
 //
-// import defaultThing as somethingElse from './exporting'
-//
+//import MyComponent1 as somethingElse from './exporting'
 
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-// import defaultThing, {widget as anotherThing, birthdayReminder, shinyButton, trees} from './exporting'
-//
-//
-// export function importing() {
-//
-// }
+
+import defaultThing, {widget as anotherThing, birthdayReminder, shinyButton, trees} from './exporting'
+
+export function importing() {
+}
