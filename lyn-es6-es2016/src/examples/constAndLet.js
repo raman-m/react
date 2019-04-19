@@ -1,10 +1,10 @@
 export function constAndLet() {
 
-    // iceCream = "salted caramel"
-    // console.log("hoisted?", iceCream)
-    //
-    // var iceCream = "chocolate"
-    // console.log("declared", iceCream)
+  iceCream = "salted caramel"
+  console.log("hoisted?", iceCream)
+
+  var iceCream = "chocolate"
+  console.log("declared", iceCream)
 
   //   iceCream = "strawberry"
   //   console.log("reassigned?", iceCream)
@@ -13,11 +13,11 @@ export function constAndLet() {
   //   console.log("redeclared?", iceCream)
   //
   //
-    // gelato = "mango"
-    // console.log("hoisted?", gelato)
-    //
-    // const gelato = "lemon"
-    // console.log("declared", gelato)
+  // gelato = "mango"
+  // console.log("hoisted?", gelato)
+
+  // const gelato = "lemon"
+  // console.log("declared", gelato)
 
   //   gelato = "mint"
   //   console.log("reassigned", gelato)
@@ -26,12 +26,12 @@ export function constAndLet() {
   //   console.log("redeclared", gelato )
   //
   //
-    // froYo = "brownie"
-    // console.log("hoisted?", froYo)
-    //
-    // let froYo = "cherry"
-    // console.log("declared", froYo)
-    //
+  froYo = "brownie"
+  console.log("hoisted?", froYo)
+  
+  let froYo = "cherry"
+  console.log("declared", froYo)
+  
   //   froYo = "cheese cake"
   //   console.log("reassigned", froYo)
   //
@@ -46,17 +46,23 @@ export function constAndLet() {
   // canIChangeThis = "Did I change this?"
   // console.log(canIChangeThis)
 
-  // const toppings = ["sprinkles", "strawberries"]
-  //
-  // toppings.push("fudge")
-  //
-  //
-  // console.log(toppings)
+  // const immutableVar = "What is this var?";
+  // console.log(immutableVar);
 
-  // ["sprinkles", "strawberries", "fudge"]
+  // immutableVar = "Did I change this?";
+  // console.log(immutableVar);
+
+  const toppings = ["sprinkles", "strawberries"]
+  
+  toppings.push("fudge")
+  toppings.push("cherry")
+  
+  console.log(toppings)
+
+  // ["sprinkles", "strawberries", "fudge", "cherry"]
   //
-  // Object.freeze(toppings)
-  //
-  // toppings.push('raisins')
+  Object.freeze(toppings)
+  
+  //toppings.push('raisins')
 
 }
