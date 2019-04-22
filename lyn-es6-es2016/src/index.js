@@ -6,10 +6,11 @@ import {
     //constAndLet,
     //arrowFunctions
     //destructuring
-    objAssemblyComputedProps
+    //objAssemblyComputedProps
+    spreadOperator
 } from './examples'
 
-objAssemblyComputedProps()
+spreadOperator()
 
 ReactDOM.render(<App />, document.getElementById('root'));
 
