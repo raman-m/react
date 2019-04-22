@@ -1,40 +1,45 @@
 export function spreadOperator() {
 
-  const sauces = ['bbq', 'buffaloe', 'honey mustard']
+  const powerOfTwo = [2, 4, 8, 16]
+  const evenIntegers = [2, 6, 10]
 
-  const dressings = ['ranch', 'balsamic', 'thousand island']
+  const evens = [...evenIntegers, ...powerOfTwo]
 
-  const superSecretSauce = [...sauces, ...dressings]
+  console.log('evens = ', evens)
 
-  console.log(superSecretSauce)
 
-  // //technically this is not yet allowed for objects
-  // //but you can do it in create react app
-  //
-
-  const favoriteToppings = {    //the object we will spread
-    peanutButter: 'crunchy',
-    jelly: 'strawberry'  //it has two key-value pairs
+  console.log('Spread operator vs Object')
+  const square = {
+    base: 2,
+    name: 'square'
   }
+  console.log('square = ', square)
 
-  const sandwich = {  //we are going to add the properties
-    breadSlices: 2,   // of condiments to this new object
-    ...favoriteToppings    //by using an elipsis
+  const exponent = {
+    toPower: (base, num) => {
+      return Math.pow(base, num)
+    }
   }
+  console.log('exponent = ', exponent)
 
-  console.log('sandwich = ', sandwich)
-  // /*
-  //     sandwich = {
-  //       breadSlices: 2,
-  //       peanutButter: 'crunchy',
-  //       jelly: 'strawberry'
-  //     }
-  //  */
-  //
-  //  //you can also do
-  //
-  const sameSandwich = Object.assign({breadSlices: 2}, favoriteToppings)
-  
-  console.log('sameSandwich = ', sameSandwich)
-  
+  const squareExponent = {
+    toSquare: (num) => exponent.toPower(square.base, num),
+    ...exponent,
+    ...square
+  }
+  console.log('squareExponent = ', squareExponent)
+  console.log(squareExponent.name, 'of 3 =', squareExponent.toSquare(3))
+
+
+  const cubeExponent = Object.assign(
+    {
+      base: 3,
+      name: 'cube',
+      toCube: (num) => exponent.toPower(cubeExponent.base, num),
+    },
+    exponent
+  )
+  console.log('cubeExponent = ', cubeExponent)
+  console.log(cubeExponent.name, 'of 3 =', cubeExponent.toCube(3))
+
 }
