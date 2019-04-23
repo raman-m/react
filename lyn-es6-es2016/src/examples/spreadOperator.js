@@ -8,38 +8,44 @@ export function spreadOperator() {
   console.log('evens = ', evens)
 
 
-  console.log('Spread operator vs Object')
+  console.log('#--------------------------- \n')
+  console.log('# Spread operator vs Object  \n')
+  console.log('#--------------------------- \n')
+
   const square = {
-    base: 2,
+    power: 2,
     name: 'square'
   }
   console.log('square = ', square)
 
   const exponent = {
-    toPower: (base, num) => {
-      return Math.pow(base, num)
+    toPower: (base, power) => {
+      return Math.pow(base, power)
     }
   }
   console.log('exponent = ', exponent)
 
   const squareExponent = {
-    toSquare: (num) => exponent.toPower(square.base, num),
+    toSquare: (base) => exponent.toPower(base, square.power),
     ...exponent,
     ...square
   }
-  console.log('squareExponent = ', squareExponent)
-  console.log(squareExponent.name, 'of 3 =', squareExponent.toSquare(3))
 
+  let base = 3
+  console.log('squareExponent = ', squareExponent)
+  console.log(squareExponent.name, 'of', base, '=', squareExponent.toSquare(base))
 
   const cubeExponent = Object.assign(
     {
-      base: 3,
+      power: 3,
       name: 'cube',
-      toCube: (num) => exponent.toPower(cubeExponent.base, num),
+      toCube: (base) => exponent.toPower(base, cubeExponent.power),
     },
     exponent
   )
+
+  base = 2
   console.log('cubeExponent = ', cubeExponent)
-  console.log(cubeExponent.name, 'of 3 =', cubeExponent.toCube(3))
+  console.log(cubeExponent.name, 'of', base, '=', cubeExponent.toCube(base))
 
 }
