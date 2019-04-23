@@ -7,10 +7,11 @@ import {
     //arrowFunctions
     //destructuring
     //objAssemblyComputedProps
-    spreadOperator
+    //spreadOperator
+    templateLiterals
 } from './examples'
 
-spreadOperator()
+templateLiterals()
 
 ReactDOM.render(<App />, document.getElementById('root'));
 

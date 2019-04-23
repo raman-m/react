@@ -1,17 +1,37 @@
-export function templateLiterals () {
-  let exclamation = 'yowza'
-  let noun = 'jumbo jet'
+import { randomInt } from '../utils'
 
-  //the template literal allows us to easily
-  //insert variables into a string
+export function templateLiterals() {
 
-  const madlibs = `"Oh ${exclamation}!" they said.
-                   "I've never seen a ${noun} before!" `
+  console.log(
+`#---------------------------------------------------
+# Template literals example: "Exponential function" 
+#---------------------------------------------------`);
 
-  console.log('madlibs = ', madlibs)
-  /*
-      madlibs = '"Oh yowza!" they said.
-        "I've never seen a jumbo jet before!"'
-   */
-  
+  const base = randomInt(0, 10);
+  const exponents = [-1, 0, 0.5, 1, 2, 3, 4];
+
+  console.log(`base = ${base}`); // template
+  console.log('exponents =', exponents);
+
+  exponents
+    .map((power) => Math.pow(base, power))
+    .forEach((value, index) => {
+      console.log(`${base}^${exponents[index]} = ${value}`) // template
+    });
+
+
+  console.log(
+`#---------------------------------------------
+# Template literals example: "Word reflector"
+#---------------------------------------------`);
+
+  const words = ['a', 'ab', 'abc', 'abcd', '12345'];
+  console.log('words =', words);
+
+  words
+    .map((word) => word.split('').reverse().join(''))
+    .forEach((reversedWord, index) => {
+      console.log(`Reversed word of '${words[index]}' is '${reversedWord}'`) // template
+    });
+
 }
