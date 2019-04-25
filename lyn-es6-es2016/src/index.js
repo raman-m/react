@@ -8,10 +8,9 @@ import {
     //destructuring
     //objAssemblyComputedProps
     //spreadOperator
-    templateLiterals
+    //templateLiterals
 } from './examples'
 
-templateLiterals()
 
 ReactDOM.render(<App />, document.getElementById('root'));
 

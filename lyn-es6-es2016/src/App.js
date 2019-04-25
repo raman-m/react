@@ -4,7 +4,12 @@ import {Markup, Editor, Container, Column, Row, RuleInput, RuleLabel, StyleInput
 class App extends Component {
 
   state = {
-    Editor: ""
+    editor: "",
+    name0: "",
+    begin0: "",
+    end0: "",
+    style0: "",
+    rules: 1,
   }
 
   handleChange = (event) => {
@@ -14,13 +19,38 @@ class App extends Component {
     })
   }
 
+  newFields = () => {
+    this.setState((prevState) => {
+      let {rules} = prevState
+      let fields = ['name', 'begin', 'end', 'style']
+      let inputValues = {}
+      fields.forEach((field) => {
+        inputValues = {
+          ...inputValues,
+          [`${field}${rules}`]: '',
+        }
+      })
+      rules++
+      console.log({
+        rules,
+        ...inputValues
+      })
+      return {
+        rules,
+        ...inputValues
+      }
+    })
+  }
+
   render() {
     let {value} = this.state
-    let {handleChange} = this
+    let {handleChange, newFields} = this
     return (
       <Container>
         <Column>
-          <Button>
+          <Button
+            onClick={newFields}
+          >
             New Rule
           </Button>
         </Column>
