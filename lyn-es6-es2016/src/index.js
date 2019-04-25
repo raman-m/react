@@ -9,8 +9,10 @@ import {
     //objAssemblyComputedProps
     //spreadOperator
     //templateLiterals
+    functionArgs
 } from './examples'
 
+functionArgs()
 
 ReactDOM.render(<App />, document.getElementById('root'));
 
