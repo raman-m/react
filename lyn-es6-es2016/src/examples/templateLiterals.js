@@ -1,4 +1,4 @@
-import { randomInt } from '../utils'
+import { rando } from '../utils'
 
 export function templateLiterals() {
 
@@ -7,7 +7,7 @@ export function templateLiterals() {
 # Template literals example: "Exponential function" 
 #---------------------------------------------------`);
 
-  const base = randomInt(0, 10);
+  const base = rando.randomInt(0, 10);
   const exponents = [-1, 0, 0.5, 1, 2, 3, 4];
 
   console.log(`base = ${base}`); // template
