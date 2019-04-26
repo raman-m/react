@@ -12,7 +12,6 @@ import {
     functionArgs
 } from './examples'
 
-functionArgs()
 
 ReactDOM.render(<App />, document.getElementById('root'));
 
