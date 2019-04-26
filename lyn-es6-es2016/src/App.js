@@ -24,7 +24,7 @@ class App extends Component {
     })
   }
 
-  rules = () => {
+  get rules () {
     let { rules } = this.state
     let array = []
     let fields = ['name', 'begin', 'end']
@@ -144,7 +144,7 @@ class App extends Component {
     return (
       <Container>
         <Column>
-          {rules()}
+          {rules}
           <Button
             onClick={newFields}
           >
