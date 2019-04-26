@@ -4,7 +4,7 @@ import hljs from 'highlight.js'
 import {rando} from './utils'
 
 console.log(rando)
-console.log(rando.randomInt(1, 10))
+console.log(rando.color())
 
 class App extends Component {
 
