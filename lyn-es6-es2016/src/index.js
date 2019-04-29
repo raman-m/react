@@ -10,10 +10,8 @@ import {
     //spreadOperator
     //templateLiterals
     //functionArgs
-    promises
+    //promises
 } from './examples'
-
-promises()
 
 ReactDOM.render(<App />, document.getElementById('root'));
 
