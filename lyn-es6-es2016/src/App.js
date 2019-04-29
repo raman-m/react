@@ -135,7 +135,7 @@ class App extends Component {
     while (newStyles.includes('random')) {
       newStyles = newStyles.replace('random', rando.color())
     }
-    
+
     return newStyles
   }
 
@@ -179,7 +179,7 @@ class App extends Component {
               onChange={handleChange}
             />
             <Markup
-              customStyles={this.prepareStyles()}
+              customStyles={prepareStyles()}
               dangerouslySetInnerHTML={convertToMarkup(editor)}
             />
           </Document>

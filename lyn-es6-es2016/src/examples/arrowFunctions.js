@@ -44,9 +44,6 @@ export function arrowFunctions() {
     })
   }
 
-  // new Welcome()
-  // undefined
-
-  // {happy: 'yes'}
-
+  let greating = new Welcome()
+  console.log(greating.happy)
 }

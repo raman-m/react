@@ -24,10 +24,11 @@ export function objAssemblyComputedProps() {
   let rarity = 'very rare'
   
   const specialKeys = {
-    [creepyKeyName]: rarity
+    [creepyKeyName]: rarity,
+    cape: cape,
   }
-  //
-  // console.log(specialKeys)
+  console.log(specialKeys)
+
   // /*
   //     {
   //       skeletonKey: 'very rare',

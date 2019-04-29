@@ -3,14 +3,6 @@ import ReactDOM from 'react-dom'
 import App from './App'
 import * as serviceWorker from './serviceWorker'
 import {
-    //constAndLet,
-    //arrowFunctions
-    //destructuring
-    //objAssemblyComputedProps
-    //spreadOperator
-    //templateLiterals
-    //functionArgs
-    //promises
 } from './examples'
 
 ReactDOM.render(<App />, document.getElementById('root'));
