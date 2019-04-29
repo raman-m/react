@@ -3,9 +3,6 @@ import { Markup, Editor, Container, Column, Row, RuleInput, RuleLabel, StyleInpu
 import hljs from 'highlight.js'
 import {rando} from './utils'
 
-console.log(rando)
-console.log(rando.color())
-
 class App extends Component {
 
   state = {
