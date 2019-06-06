@@ -1,6 +1,8 @@
 import React from 'react';
 import Board from './Board'
 
+const maxNo = 3;
+
 function calculateWinner(squares) {
     const lines = [
         [0, 1, 2],
@@ -21,12 +23,49 @@ function calculateWinner(squares) {
     return null;
 }
 
+export const NoDiff = {
+    index: null,
+    col: null,
+    row: null
+};
+
+export function makeStepsDiff(prevSquares, currentSquares) {
+    debugger;
+    let a = Array.name;
+    let b = typeof (prevSquares);
+    let c =  Array.isArray(prevSquares);
+    if (!Array.isArray(prevSquares) || !Array.isArray(currentSquares)) {
+        throw new TypeError();
+    }
+    if (prevSquares.length !== currentSquares.length) {
+        throw new RangeError();
+    }
+    let length = prevSquares.length;
+
+    //let diffIndex = -1;
+    for (var i = 0; i < length; i++) {
+        if (prevSquares[i] !== currentSquares[i]) {
+            //diffIndex = i;
+            break;
+        }
+    }
+    if (i === length) {
+        return NoDiff;
+    }
+
+    return {
+        index: i,
+        col: 1 + i % maxNo,
+        row: 1 + Math.trunc(i / maxNo),
+    };
+}
+
 export default class Game extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
             history: [{
-                squares: Array(9).fill(null),
+                squares: Array(maxNo * maxNo).fill(null),
             }],
             stepNumber: 0,
             xIsNext: true,
@@ -62,7 +101,7 @@ export default class Game extends React.Component {
         const current = history[this.state.stepNumber];
         const winner = calculateWinner(current.squares);
 
-        const moves = history.map((step, move) => {
+        const moves = history.map((step, move, steps) => {
             const desc = move ?
                 'Go to move #' + move :
                 'Go to game start';
