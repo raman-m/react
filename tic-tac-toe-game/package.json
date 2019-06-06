@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@types/jasmine": "^3.3.13",
     "react": "^16.8.4",
     "react-dom": "^16.8.4",
     "react-scripts": "2.1.8"
@@ -12,6 +13,7 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "test:debug": "react-scripts --inspect-brk test --runInBand --no-cache",
+    "coverage": "react-scripts test \"--coverage\"",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
