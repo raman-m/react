@@ -1,7 +1,6 @@
 import React from 'react';
 import Board from './Board'
-
-export const MaxNo = 3;
+import Business from './Business'
 
 function calculateWinner(squares) {
     const lines = [
@@ -23,46 +22,15 @@ function calculateWinner(squares) {
     return null;
 }
 
-export const NoDiff = {
-    index: null,
-    col: null,
-    row: null
-};
-
-export function makeStepsDiff(prevSquares, currentSquares) {
-    debugger;
-    if (!Array.isArray(prevSquares) || !Array.isArray(currentSquares)) {
-        throw new TypeError();
-    }
-    if (prevSquares.length !== currentSquares.length) {
-        throw new RangeError();
-    }
-    let length = prevSquares.length;
-
-    //let diffIndex = -1;
-    for (var i = 0; i < length; i++) {
-        if (prevSquares[i] !== currentSquares[i]) {
-            //diffIndex = i;
-            break;
-        }
-    }
-    if (i === length) {
-        return NoDiff;
-    }
-
-    return {
-        index: i,
-        col: 1 + i % MaxNo,
-        row: 1 + Math.trunc(i / MaxNo),
-    };
-}
-
 export default class Game extends React.Component {
+
+    business = new Business(3);
+
     constructor(props) {
         super(props);
         this.state = {
             history: [{
-                squares: Array(MaxNo * MaxNo).fill(null),
+                squares: Array(this.business.maxNo ** 2).fill(null),
             }],
             stepNumber: 0,
             xIsNext: true,
