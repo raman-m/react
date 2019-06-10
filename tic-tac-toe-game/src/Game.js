@@ -47,9 +47,13 @@ export default class Game extends React.Component {
         const winner = this.business.calculateWinner(current.squares);
 
         const moves = history.map((step, move, steps) => {
+            const diff = this.business.makeStepsDiff(
+                move > 0 ? steps[move - 1].squares : step.squares,
+                step.squares);
+            const moveLocation = `=> (${diff.col}, ${diff.row})`;
             const desc = move ?
-                'Go to move #' + move :
-                'Go to game start';
+                `Go to move #${move} ${moveLocation}` :
+                `Go to game start ${moveLocation}`;
             return (
                 <li key={move}>
                     <button onClick={() => this.jumpTo(move)}>{desc}</button>

@@ -4,9 +4,12 @@
   "private": true,
   "dependencies": {
     "@types/jasmine": "^3.3.13",
+    "jest-dom": "^3.5.0",
     "react": "^16.8.4",
     "react-dom": "^16.8.4",
-    "react-scripts": "2.1.8"
+    "react-scripts": "2.1.8",
+    "react-test-renderer": "^16.8.6",
+    "react-testing-library": "^8.0.1"
   },
   "scripts": {
     "start": "react-scripts start",

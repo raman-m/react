@@ -8,8 +8,8 @@ export default class Business {
     static get noDiff() {
         return {
             index: null,
-            col: null,
-            row: null
+            col: '?',
+            row: '?'
         };
     }
 
