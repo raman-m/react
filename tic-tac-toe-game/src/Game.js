@@ -13,6 +13,7 @@ export default class Game extends React.Component {
                 squares: Array(this.business.maxNo ** 2).fill(null),
             }],
             stepNumber: 0,
+            squareIndex: null,
             xIsNext: true,
         };
     }
@@ -30,15 +31,27 @@ export default class Game extends React.Component {
                 squares: squares,
             }]),
             stepNumber: history.length,
+            squareIndex: i,
             xIsNext: !this.state.xIsNext,
         });
     }
 
     jumpTo(step) {
+        const diff = this.getStepsDiff(
+            this.state.history[step],
+            step,
+            this.state.history);
         this.setState({
             stepNumber: step,
+            squareIndex: diff.index,
             xIsNext: (step % 2) === 0,
         });
+    }
+
+    getStepsDiff(step, index, steps) {
+        return this.business.makeStepsDiff(
+            index > 0 ? steps[index - 1].squares : step.squares,
+            step.squares);
     }
 
     render() {
@@ -47,16 +60,18 @@ export default class Game extends React.Component {
         const winner = this.business.calculateWinner(current.squares);
 
         const moves = history.map((step, move, steps) => {
-            const diff = this.business.makeStepsDiff(
-                move > 0 ? steps[move - 1].squares : step.squares,
-                step.squares);
+            const diff = this.getStepsDiff(step, move, steps);
             const moveLocation = `=> (${diff.col}, ${diff.row})`;
             const desc = move ?
                 `Go to move #${move} ${moveLocation}` :
                 `Go to game start ${moveLocation}`;
             return (
                 <li key={move}>
-                    <button onClick={() => this.jumpTo(move)}>{desc}</button>
+                    <button
+                        className={this.state.stepNumber === move ? 'selected' : ''}
+                        onClick={() => this.jumpTo(move)}>
+                        {desc}
+                    </button>
                 </li>
             );
         });
@@ -73,6 +88,7 @@ export default class Game extends React.Component {
                 <Board
                     squares={current.squares}
                     onClick={(i) => this.handleClick(i)}
+                    squareIndex={this.state.squareIndex}
                 />
                 <div className="game-info">
                     <div>{status}</div>
