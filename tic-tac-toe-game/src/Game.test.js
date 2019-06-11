@@ -4,6 +4,8 @@ import * as TestUtils from 'react-dom/test-utils';
 import ShallowRenderer from 'react-test-renderer/shallow';
 import Game from './Game'
 import Square from './Square';
+import Business from './Business'
+import { Mock, ArgsMockingResult } from './Mock'
 
 describe('Game component', () => {
     it('renders without crashing', () => {
@@ -46,7 +48,6 @@ describe('Game component', () => {
             "Go to move #4 => (2, 2)",
             "Go to move #5 => (3, 1)",
         ];
-        debugger;
 
         // Act
         TestUtils.act(() => {
@@ -60,4 +61,113 @@ describe('Game component', () => {
         let expected = expectedButtonText[0];
         expect(button.textContent).toBe(expected);
     });
+
+    describe('getStepsDiff', () => {
+        // Setup
+        let businessMock;
+        const mockSetup = {
+            makeStepsDiff: (prevSquares, currentSquares) => {
+                return mockSetup.mock.object(prevSquares, currentSquares);
+            }
+        };
+
+        beforeEach(() => {
+            businessMock = new Mock(mockSetup)
+                .setup(mockSetup.makeStepsDiff);
+        });
+
+        it('checks arguments', () => {
+            // Arrange
+            let sut = new Game({});
+            let step = { squares: [] };
+
+            // Act, Assert
+            expect(sut.getStepsDiff(null)).toEqual(Business.noDiff);
+            expect(sut.getStepsDiff({})).toEqual(Business.noDiff);
+            expect(sut.getStepsDiff(step)).toEqual(Business.noDiff);
+
+            expect(sut.getStepsDiff(step, null)).toEqual(Business.noDiff);
+            expect(sut.getStepsDiff(step, '0')).toEqual(Business.noDiff);
+            expect(sut.getStepsDiff(step, -1)).toEqual(Business.noDiff);
+
+            expect(sut.getStepsDiff(step, 0)).toEqual(Business.noDiff);
+            expect(sut.getStepsDiff(step, 0, '[]')).toEqual(Business.noDiff);
+            expect(sut.getStepsDiff(step, 0, [])).toEqual(Business.noDiff);
+        });
+
+        it("reads the 'squares' property", () => {
+            // Arrange
+            let sut = new Game({});
+            sut.business = businessMock
+                .returns(() => Business.noDiff)
+                .as(ArgsMockingResult);
+
+            const squares = [1, 2, 3];
+            const item1 = { squares: squares }
+
+            // Act
+            let items = [item1];
+            let actual = sut.getStepsDiff(item1, 0, items);
+
+            // Assert
+            expect(actual.mock.called).toBe(1);
+            expect(actual.args).not.toBeNull();
+            expect(actual.args.length).toBe(2);
+            expect(actual.args[0]).toEqual(squares);
+            expect(actual.args[1]).toEqual(squares);
+        });
+
+        it('gets the 1st step as default to read squares from', () => {
+            // Arrange
+            let sut = new Game({});
+            sut.business = businessMock
+                .returns(() => Business.noDiff)
+                .as(ArgsMockingResult);
+
+            const squares1 = [1, 2, null];
+            const squares2 = [1, 2, 3];
+            const step1 = { squares: squares1 };
+            const step2 = { squares: squares2 };
+
+            // Act
+            let steps = [step1, step2];
+            let actual = sut.getStepsDiff(step1, 0, steps);
+
+            // Assert
+            expect(actual.mock.called).toBe(1);
+            expect(actual.args).not.toBeNull();
+            expect(actual.args.length).toBe(2);
+            expect(actual.args[0]).toEqual(squares1);
+            expect(actual.args[1]).toEqual(squares1);
+        });
+
+        it('gets the previous step as 1st arg and it gets current step as 2nd arg', () => {
+            // Arrange
+            let sut = new Game({});
+            sut.business = businessMock
+                .returns(() => ({
+                    index: 2,
+                    col: 3,
+                    row: 1
+                }))
+                .as(ArgsMockingResult);
+
+            const prevSquares = [1, 2, null];
+            const currentSquares = [1, 2, 3];
+            const prevStep = { squares: prevSquares };
+            const currentStep = { squares: currentSquares };
+
+            // Act
+            let steps = [prevStep, currentStep];
+            let actual = sut.getStepsDiff(currentStep, 1, steps);
+
+            // Assert
+            expect(actual.mock.called).toBe(1);
+            expect(actual.args).not.toBeNull();
+            expect(actual.args.length).toBe(2);
+            expect(actual.args[0]).toEqual(prevSquares);
+            expect(actual.args[1]).toEqual(currentSquares);
+        });
+    });
+
 });

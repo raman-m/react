@@ -49,6 +49,11 @@ export default class Game extends React.Component {
     }
 
     getStepsDiff(step, index, steps) {
+        if (!step || !step.squares ||
+            !Number.isInteger(index) || index < 0 ||
+            !steps || !Array.isArray(steps)) {
+            return Business.noDiff;
+        }
         return this.business.makeStepsDiff(
             index > 0 ? steps[index - 1].squares : step.squares,
             step.squares);
