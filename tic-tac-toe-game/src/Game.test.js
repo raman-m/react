@@ -1,8 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import * as TestUtils from 'react-dom/test-utils';
+import { create } from 'react-test-renderer';
 import ShallowRenderer from 'react-test-renderer/shallow';
 import Game from './Game'
+import Board from './Board';
 import Square from './Square';
 import Business from './Business'
 import { Mock, ArgsMockingResult } from './Mock'
@@ -13,7 +15,7 @@ describe('Game component', () => {
         ReactDOM.render(<Game />, div);
     });
 
-    it('"Move Location" feature works', () => {
+    it("Feature 'Move Location' works", () => {
         // Arrange
         let container = document.createElement('div');
         let state = {
@@ -60,6 +62,59 @@ describe('Game component', () => {
         let button = buttons[0];
         let expected = expectedButtonText[0];
         expect(button.textContent).toBe(expected);
+    });
+
+    it("Feature 'Selected Item' works", () => {
+        const component = create(<Game />);
+        const game = component.getInstance();
+        // Play the game by square clicks
+        // (?,?) => (1,1) => (3,3) => (1,3) => (3,2) => (1,2) => Winner: X
+        const squareIds = [0, 8, 6, 5, 3];
+        // Start the game
+        squareIds.forEach((id, stepId) => {
+            game.handleClick(id);
+            expect(game.state.history.length - 1).toBe(stepId + 1);
+            expect(game.state.squareIndex).toBe(id);
+            let board = component.root.findByType(Board);
+            expect(board.props.squareIndex).toBe(id);
+            let squares = board.findAllByType(Square);
+            let square = squares[id];
+            expect(square.props.selected).toBeTruthy();
+            let button = square.findByType('button');
+            expect(button.props.className.indexOf('selected')).toBeGreaterThan(-1);
+            let moveList = component.root.findByType('ol');
+            let moveItems = moveList.findAllByType('li');
+            let moveItem = moveItems[stepId + 1];
+            //expect(moveItem.props.key).toBe(i + 1);
+            button = moveItem.findByType('button');
+            expect(button.props.children.startsWith(`Go to move #${stepId + 1} `)).toBeTruthy();
+            expect(button.props.className.indexOf('selected')).toBeGreaterThan(-1);
+        });
+
+        // Check the game is over
+        let prevHystoryLength = game.state.history.length;
+        let prevSquareIndex = game.state.squareIndex;
+        let prevStepNumber = game.state.stepNumber;
+        let prevMoveListLength = component.root
+            .findByType('ol')
+            .findAllByType('li')
+            .length;
+
+        // Click square #1 because it is empty
+        game.handleClick(1);
+
+        expect(game.state.history.length).toBe(prevHystoryLength);
+        expect(game.state.squareIndex).toBe(prevSquareIndex);
+        expect(game.state.stepNumber).toBe(prevStepNumber);
+        const actualMoveListLength = component.root
+            .findByType('ol')
+            .findAllByType('li')
+            .length;
+        expect(actualMoveListLength).toBe(prevMoveListLength);
+
+        // Check the winner is 'X'
+        let gameStatus = component.root.find(element => element.props.className === 'game-status');
+        expect(gameStatus.props.children).toBe('Winner: X');
     });
 
     describe('jumpTo', () => {
