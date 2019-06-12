@@ -41,11 +41,13 @@ export default class Game extends React.Component {
             this.state.history[step],
             step,
             this.state.history);
-        this.setState({
+        const newState = {
             stepNumber: step,
             squareIndex: diff.index,
             xIsNext: (step % 2) === 0,
-        });
+        };
+        this.setState(newState);
+        return newState;
     }
 
     getStepsDiff(step, index, steps) {

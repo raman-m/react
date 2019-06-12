@@ -62,6 +62,114 @@ describe('Game component', () => {
         expect(button.textContent).toBe(expected);
     });
 
+    describe('jumpTo', () => {
+        let history = [
+            {
+                squares: [
+                    null, null, null,
+                    null, null, null,
+                    null, null, null
+                ]
+            },
+            {
+                squares: [
+                    "X", null, null,
+                    null, null, null,
+                    null, null, null
+                ]
+            },
+            {
+                squares: [
+                    "X", null, null,
+                    null, null, null,
+                    null, null, "O"
+                ]
+            },
+            {
+                squares: [
+                    "X", null, null,
+                    "X", null, null,
+                    null, null, "O"
+                ]
+            },
+            {
+                squares: [
+                    "X", null, null,
+                    "X", null, "O",
+                    null, null, "O"
+                ]
+            },
+            {
+                squares: [
+                    "X", null, null,
+                    "X", null, "O",
+                    "X", null, "O"
+                ]
+            }
+        ];
+
+        const mockSetup = {
+            makeStepsDiff: (prevSquares, currentSquares) => {
+                return mockSetup.mock.object(prevSquares, currentSquares);
+            }
+        };
+        const businessMock = new Mock(mockSetup);
+        const diffMockData = [
+            Business.noDiff,
+            { col: 1, index: 0, row: 1 },
+            { col: 3, index: 8, row: 3 },
+            { col: 1, index: 3, row: 2 },
+            { col: 3, index: 5, row: 2 },
+            { col: 1, index: 6, row: 3 }
+        ];
+
+        beforeEach(() => {
+            businessMock.setup(mockSetup.makeStepsDiff);
+        });
+
+        it('gets steps diff and assigns diff index to the state', () => {
+            // Arrange
+            const sut = new Game({});
+            sut.state.history = history;
+            sut.business = businessMock;
+
+            history.forEach((step, index) => {
+                // Arrange
+                let diff = diffMockData[index];
+                businessMock.returns(() => diff);
+
+                // Act
+                let actual = sut.jumpTo(index);
+
+                // Assert
+                expect(businessMock.called).toBe(index + 1);
+                expect(actual.squareIndex).toBe(diff.index);
+            });
+        });
+
+        it('sets new state', () => {
+            // Arrange
+            const sut = new Game({});
+            sut.state.history = history;
+            sut.business = businessMock;
+
+            history.forEach((step, index) => {
+                // Arrange
+                let diff = diffMockData[index];
+                businessMock.returns(() => diff);
+
+                // Act
+                let actual = sut.jumpTo(index);
+
+                // Assert
+                expect(businessMock.called).toBe(index + 1);
+                expect(actual.stepNumber).toBe(index);
+                expect(actual.squareIndex).toBe(diff.index);
+                expect(typeof actual.xIsNext).toEqual('boolean');
+            });
+        });
+    });
+
     describe('getStepsDiff', () => {
         // Setup
         let businessMock;
