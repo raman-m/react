@@ -93,6 +93,7 @@ export default class Game extends React.Component {
         return (
             <div className="game">
                 <Board
+                    maxNo={this.business.maxNo}
                     squares={current.squares}
                     onClick={(i) => this.handleClick(i)}
                     squareIndex={this.state.squareIndex}
